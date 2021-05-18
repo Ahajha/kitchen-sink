@@ -29,9 +29,13 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/extern/cxxopts/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
+add_subdirectory(extern/cxxopts)
+
 add_library(world src/world.cpp include/world.hpp)
 add_executable(sink src/hello.cpp)
 
 target_link_libraries(sink PRIVATE world)
 target_include_directories(sink PRIVATE include)
 target_include_directories(world PRIVATE include)
+
+target_include_directories(sink PRIVATE extern/cxxopts/include)
