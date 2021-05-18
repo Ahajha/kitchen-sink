@@ -39,3 +39,8 @@ target_include_directories(sink PRIVATE include)
 target_include_directories(world PRIVATE include)
 
 target_include_directories(sink PRIVATE extern/cxxopts/include)
+
+# cxxopts takes a while to compile, so if possible precompile it.
+if(COMMAND target_precompile_headers)
+	target_precompile_headers(sink PRIVATE extern/cxxopts/include/cxxopts.hpp)
+endif()
