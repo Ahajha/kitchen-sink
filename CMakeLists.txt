@@ -31,8 +31,43 @@ endif()
 
 add_subdirectory(extern/cxxopts)
 
+# From doctest's documentation: https://github.com/onqtam/doctest/blob/master/doc/markdown/build-systems.md
+include(ExternalProject)
+find_package(Git REQUIRED)
+
+# Fetch doctest
+ExternalProject_Add(
+    doctest
+    PREFIX ${CMAKE_BINARY_DIR}/doctest
+    GIT_REPOSITORY https://github.com/onqtam/doctest.git
+    TIMEOUT 10
+    UPDATE_COMMAND ${GIT_EXECUTABLE} pull
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+    INSTALL_COMMAND ""
+    LOG_DOWNLOAD ON
+)
+
+# Expose required variable (DOCTEST_INCLUDE_DIR) to parent scope
+ExternalProject_Get_Property(doctest source_dir)
+set(DOCTEST_INCLUDE_DIR ${source_dir}/doctest CACHE INTERNAL "Path to include folder for doctest")
+
+# For now, just globally add doctest
+include_directories(${DOCTEST_INCLUDE_DIR})
+
+
 add_library(world src/world.cpp include/world.hpp)
 add_executable(sink src/hello.cpp)
+
+find_program(iwyu_path NAMES include-what-you-use iwyu)
+if(NOT iwyu_path)
+  message(FATAL_ERROR "Could not find the program include-what-you-use")
+endif()
+
+set_target_properties(sink world
+  PROPERTIES
+  CXX_INCLUDE_WHAT_YOU_USE ${iwyu_path}
+)
 
 target_link_libraries(sink PRIVATE world)
 target_include_directories(sink PRIVATE include)
