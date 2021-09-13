@@ -29,3 +29,20 @@ void say_hello()
 	for (auto c : hw | std::views::reverse)
 		std::cout << c;
 }
+
+unsigned long long fibb(unsigned n)
+{
+	if (n <= 1) return n;
+	
+	unsigned long long prev_prev = 0, prev = 1;
+	
+	for (unsigned k = 2; k <= n; ++k)
+	{
+		const unsigned long long current = prev + prev_prev;
+		
+		prev_prev = prev;
+		prev = current;
+	}
+	
+	return prev;
+}
