@@ -17,14 +17,15 @@ export void say_hello()
 }
 */
 
-#include <world.hpp>
+#include "world.hpp"
 #include <iostream>
 #include <string_view>
 #include <ranges>
 
 void say_hello()
 {
+	const std::string_view hw = "\n!dlroW olleH";
 	// Over-engineered Hello World to ensure we are using C++20.
-	for (auto c : std::string_view("\n!dlroW olleH") | std::views::reverse)
+	for (auto c : hw | std::views::reverse)
 		std::cout << c;
 }
