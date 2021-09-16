@@ -18,6 +18,7 @@ export void say_hello()
 */
 
 #include "world.hpp"
+#include "doctest.h"
 #include <iostream>
 #include <string_view>
 #include <ranges>

@@ -1,6 +1,9 @@
 //import world;
-#include <world.hpp>
-#include <cxxopts.hpp>
+// Need to link, but disable, doctest.
+#define DOCTEST_CONFIG_IMPLEMENT
+#include "doctest.h"
+#include "world.hpp"
+#include "cxxopts.hpp"
 
 int main(int argc, char** argv)
 {
