@@ -52,9 +52,10 @@ TEST_CASE("Testing Fibbonacci")
 {
 	CHECK(fibb(0) == 0);
 	CHECK(fibb(1) == 1);
-	CHECK(fibb(2) == 2);
-	CHECK(fibb(3) == 3);
-	CHECK(fibb(4) == 5);
-	CHECK(fibb(5) == 8);
-	CHECK(fibb(6) == 13);
+	CHECK(fibb(2) == 1);
+	CHECK(fibb(3) == 2);
+	CHECK(fibb(4) == 3);
+	CHECK(fibb(5) == 5);
+	CHECK(fibb(6) == 8);
+	CHECK(fibb(7) == 13);
 }
