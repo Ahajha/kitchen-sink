@@ -29,10 +29,6 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/extern/cxxopts/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
-add_subdirectory(extern/cxxopts)
-add_subdirectory(world)
-add_subdirectory(hello)
-
 # From doctest's documentation: https://github.com/onqtam/doctest/blob/master/doc/markdown/build-systems.md
 include(ExternalProject)
 
@@ -53,8 +49,10 @@ ExternalProject_Add(
 ExternalProject_Get_Property(doctest source_dir)
 set(DOCTEST_INCLUDE_DIR ${source_dir}/doctest CACHE INTERNAL "Path to include folder for doctest")
 
-# For now, just globally add doctest
-include_directories(${DOCTEST_INCLUDE_DIR})
+add_subdirectory(extern/cxxopts)
+add_subdirectory(world)
+add_subdirectory(hello)
+add_subdirectory(test)
 
 find_program(iwyu_path NAMES include-what-you-use iwyu)
 if(NOT iwyu_path)
